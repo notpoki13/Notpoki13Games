@@ -2,34 +2,541 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Website Is Offline!</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="theme-color" content="#101d32">
+<meta name="description" content="The official notpoki13 website is currently under maintenance.">
+
+<title>notpoki13 | Website Maintenance</title>
+
+<style>
+:root {
+    --bg: #101d32;
+    --panel: rgba(32, 51, 78, 0.72);
+    --border: rgba(171, 198, 235, 0.13);
+    --white: #f4f7ff;
+    --muted: #9aadc9;
+    --accent: #86aee8;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    overflow-x: hidden;
+    background: var(--bg);
+    color: var(--white);
+    font-family: Inter, -apple-system,
+        BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+}
+
+/* BACKGROUND */
+
+.background {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: -1;
+}
+
+.glow {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    filter: blur(110px);
+    opacity: 0.16;
+    animation: float 12s ease-in-out infinite alternate;
+}
+
+.glow.one {
+    background: #426fae;
+    top: -230px;
+    left: -150px;
+}
+
+.glow.two {
+    background: #355a91;
+    bottom: -280px;
+    right: -130px;
+    animation-delay: -5s;
+}
+
+@keyframes float {
+    from {
+        transform: translate(0, 0);
+    }
+    to {
+        transform: translate(80px, 60px);
+    }
+}
+
+/* HEADER */
+
+header {
+    width: 100%;
+    max-width: 1100px;
+    margin: auto;
+    padding: 28px 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.brand {
+    font-size: 21px;
+    font-weight: 800;
+    letter-spacing: -0.8px;
+    color: #f4f7ff;
+}
+
+.status {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    color: #b6c9e6;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    background: rgba(117, 155, 207, 0.10);
+    border: 1px solid var(--border);
+    border-radius: 30px;
+    padding: 10px 15px;
+}
+
+.status-dot {
+    width: 7px;
+    height: 7px;
+    background: #86aee8;
+    border-radius: 50%;
+    box-shadow: 0 0 12px #86aee8;
+}
+
+/* MAIN */
+
+main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px 70px;
+}
+
+.panel {
+    width: 100%;
+    max-width: 620px;
+    padding: 55px 38px;
+    text-align: center;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 25px;
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    box-shadow: 0 25px 90px rgba(0, 0, 0, 0.20);
+    animation: appear 0.9s ease both;
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* WRENCH ICON */
+
+.main-icon {
+    width: 82px;
+    height: 82px;
+    margin: 0 auto 28px;
+    display: grid;
+    place-items: center;
+    border-radius: 23px;
+    background: rgba(119, 157, 210, 0.14);
+    border: 1px solid rgba(171, 198, 235, 0.18);
+}
+
+.main-icon svg {
+    width: 43px;
+    height: 43px;
+    stroke: #dceaff;
+    stroke-width: 1.5;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+/* HEADING */
+
+.eyebrow {
+    font-size: 11px;
+    font-weight: 750;
+    color: var(--accent);
+    letter-spacing: 3px;
+    margin-bottom: 17px;
+}
+
+h1 {
+    font-size: clamp(27px, 5vw, 39px);
+    line-height: 1.2;
+    letter-spacing: -1.5px;
+    margin-bottom: 16px;
+}
+
+.description {
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.8;
+    max-width: 420px;
+    margin: auto;
+}
+
+/* COUNTDOWN */
+
+.countdown-heading {
+    margin-top: 39px;
+    margin-bottom: 17px;
+    color: #c2d1e7;
+    font-size: 12px;
+    font-weight: 650;
+    letter-spacing: 1.5px;
+}
+
+.countdown {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 11px;
+}
+
+.time-box {
+    background: rgba(8, 20, 38, 0.38);
+    border: 1px solid var(--border);
+    border-radius: 15px;
+    padding: 19px 5px;
+    transition: transform 0.25s, background 0.25s;
+}
+
+.time-box:hover {
+    transform: translateY(-4px);
+    background: rgba(117, 155, 207, 0.13);
+}
+
+.time-box span {
+    display: block;
+    font-size: clamp(25px, 5vw, 35px);
+    font-weight: 750;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -1px;
+}
+
+.time-box small {
+    display: block;
+    color: var(--muted);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    margin-top: 8px;
+}
+
+/* DEADLINE */
+
+.deadline {
+    margin-top: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.deadline svg {
+    width: 15px;
+    height: 15px;
+    stroke: var(--accent);
+    fill: none;
+    stroke-width: 1.7;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.finished {
+    color: #c6dafa;
+    font-size: 22px;
+    font-weight: 700;
+    margin-top: 20px;
+}
+
+/* FOOTER */
+
+footer {
+    text-align: center;
+    padding: 22px;
+    color: #7387a5;
+    font-size: 11px;
+    letter-spacing: 0.3px;
+}
+
+/* MOBILE */
+
+@media (max-width: 480px) {
+    header {
+        padding: 20px 17px;
     }
 
-    body {
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: #000;
-      color: #fff;
-      font-family: Arial, Helvetica, sans-serif;
+    .brand {
+        font-size: 18px;
     }
 
-    h1 {
-      font-size: clamp(24px, 5vw, 42px);
-      font-weight: 600;
-      text-align: center;
+    .status {
+        font-size: 9px;
+        padding: 9px 10px;
     }
-  </style>
+
+    .panel {
+        padding: 43px 20px;
+        border-radius: 20px;
+    }
+
+    .countdown {
+        gap: 7px;
+    }
+
+    .time-box {
+        padding: 16px 2px;
+        border-radius: 12px;
+    }
+
+    .time-box small {
+        font-size: 8px;
+        letter-spacing: 0.7px;
+    }
+}
+
+/* ACCESSIBILITY */
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+</style>
 </head>
+
 <body>
-  <h1>Website Is Offline!</h1>
+
+<!-- BACKGROUND EFFECTS -->
+
+<div class="background">
+    <div class="glow one"></div>
+    <div class="glow two"></div>
+</div>
+
+<!-- HEADER -->
+
+<header>
+
+    <div class="brand">
+        notpoki13
+    </div>
+
+    <div class="status">
+        <span class="status-dot"></span>
+        MAINTENANCE
+    </div>
+
+</header>
+
+<!-- MAIN CONTENT -->
+
+<main>
+
+    <section class="panel" id="panel">
+
+        <!-- CUSTOM WRENCH ICON -->
+
+        <div class="main-icon">
+
+            <svg viewBox="0 0 24 24">
+
+                <path d="
+                    M14.7 6.3
+                    a5 5 0 0 0-6.6 6.6
+                    L3 18
+                    a2.1 2.1 0 0 0 3 3
+                    l5.1-5.1
+                    a5 5 0 0 0 6.6-6.6
+                    L14 13
+                    l-3-3z
+                "/>
+
+            </svg>
+
+        </div>
+
+        <!-- MAINTENANCE TEXT -->
+
+        <div class="eyebrow">
+            MAINTENANCE
+        </div>
+
+        <h1>
+            Website Is In Maintenance
+        </h1>
+
+        <p class="description">
+            We're currently performing maintenance
+            on our website. Please check back later.
+        </p>
+
+        <!-- COUNTDOWN HEADING -->
+
+        <div class="countdown-heading">
+            WEBSITE UPDATE IN
+        </div>
+
+        <!-- COUNTDOWN -->
+
+        <div class="countdown" id="countdown">
+
+            <div class="time-box">
+                <span id="days">00</span>
+                <small>DAYS</small>
+            </div>
+
+            <div class="time-box">
+                <span id="hours">00</span>
+                <small>HOURS</small>
+            </div>
+
+            <div class="time-box">
+                <span id="minutes">00</span>
+                <small>MINUTES</small>
+            </div>
+
+            <div class="time-box">
+                <span id="seconds">00</span>
+                <small>SECONDS</small>
+            </div>
+
+        </div>
+
+        <!-- DEADLINE -->
+
+        <div class="deadline" id="deadline">
+
+            <svg viewBox="0 0 24 24">
+
+                <rect x="3" y="4"
+                      width="18" height="17" rx="2"/>
+
+                <path d="
+                    M16 2v4
+                    M8 2v4
+                    M3 10h18
+                "/>
+
+            </svg>
+
+            SUNDAY, NOVEMBER 8 · 2:45 PM KSA
+
+        </div>
+
+    </section>
+
+</main>
+
+<!-- FOOTER -->
+
+<footer>
+    © 2026 notpoki13. All rights reserved.
+</footer>
+
+<!-- COUNTDOWN SCRIPT -->
+
+<script>
+
+// November 8, 2026
+// 2:45 PM Saudi Arabia time (UTC+3)
+
+const targetDate = new Date(
+    "2026-11-08T14:45:00+03:00"
+).getTime();
+
+let timer;
+
+function updateCountdown() {
+
+    const now = Date.now();
+    const distance = targetDate - now;
+
+    if (distance <= 0) {
+
+        clearInterval(timer);
+
+        document.getElementById("countdown").innerHTML = `
+            <div class="finished">
+                The update is here!
+            </div>
+        `;
+
+        document.querySelector(".countdown-heading")
+            .textContent = "UPDATE TIME";
+
+        document.getElementById("deadline")
+            .style.display = "none";
+
+        return;
+    }
+
+    const days = Math.floor(
+        distance / (1000 * 60 * 60 * 24)
+    );
+
+    const hours = Math.floor(
+        (distance / (1000 * 60 * 60)) % 24
+    );
+
+    const minutes = Math.floor(
+        (distance / (1000 * 60)) % 60
+    );
+
+    const seconds = Math.floor(
+        (distance / 1000) % 60
+    );
+
+    document.getElementById("days").textContent =
+        String(days).padStart(2, "0");
+
+    document.getElementById("hours").textContent =
+        String(hours).padStart(2, "0");
+
+    document.getElementById("minutes").textContent =
+        String(minutes).padStart(2, "0");
+
+    document.getElementById("seconds").textContent =
+        String(seconds).padStart(2, "0");
+}
+
+updateCountdown();
+
+timer = setInterval(updateCountdown, 1000);
+
+</script>
+
 </body>
 </html>
